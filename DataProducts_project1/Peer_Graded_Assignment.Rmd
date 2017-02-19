@@ -1,0 +1,47 @@
+---
+title: "RR_project1"
+author: "Luis Costa"
+date: "February 18, 2017"
+output: html_document
+---
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(leaflet)
+```
+
+## The leaflet plotting... 18 Feb 2017
+```{r echo = FALSE}
+content1 <- paste(sep = "<br/>",
+  "<b><a href='http://localeditionsf.com/'>Local Edition</a></b>",
+  "651 Market St",
+  "San Francisco, CA"
+)
+content2 <- paste(sep = "<br/>",
+  "<b><a href='http://garconsf.com/'>Le Garcon restaurant</a></b>",
+  "1101 Valencia St",
+  "San Francisco, CA"
+)
+
+df <- data.frame (lat = runif(5, min = 37.7643, max = 37.7675),
+         lng = runif(5, min = -122.4355, max = -122.4173))
+
+my_map <- leaflet()
+my_map <- addTiles(my_map)
+my_map <- addPopups(my_map, lat=37.7829916,lng=-122.4232782, content1)
+my_map <- addPopups(my_map, lat=37.7687788,lng=-122.4210699, content2)
+my_map <- setView(my_map, lat=37.75, lng=-122.45, zoom = 12)
+my_map <- addMarkers (my_map, data = df)
+my_map <- addPopups(my_map,
+   lat=37.7916376, -122.388935, "Location of pokemon Tentacruel / Magikarp")
+
+my_map <- addPopups(my_map,
+   lat=37.80794, -122.474, "Location of pokemon Squirtle")
+
+my_map <- addPopups(my_map,
+   lat=37.7916376, -122.388935, "Location of Charmander")
+
+my_map <- addPopups(my_map,
+   lat=37.80794, -122.474, "Location of pokemon Bulbasaur")
+
+my_map
+```
