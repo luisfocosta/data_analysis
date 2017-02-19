@@ -1,6 +1,6 @@
 source("dataload.R")
 
-plot1 <- function(data=NULL, destination="screen") {
+plot1 <- function(data=NULL, destination="png") {
    if(is.null(data))
       data <- load_data()
    if (destination == "png") initiate_device ("plot1.png")
