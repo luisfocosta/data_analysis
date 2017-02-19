@@ -3,8 +3,8 @@ title: "RR_project1"
 author: "Luis Costa"
 date: "February 18, 2017"
 output:
-  pdf_document: default
-  html_document: default
+  html_document:
+    keep_md: true
 ---
 ```{r setup, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
