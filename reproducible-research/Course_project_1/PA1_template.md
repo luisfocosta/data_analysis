@@ -1,28 +1,30 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+# Reproducible Research: Peer Assessment 1
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, comment = "")
-library(knitr)
-library(dplyr)
-library(ggplot2)
-```
+
 
 
 ## Loading and preprocessing the data
 
-```{r Load & read csv file, }
-setwd("/Users/costal3/projects/R/data_analysis")
+
+```r
+setwd("/Users/costal3/projects/R/data_analysis/reproducible-research/Course_project_1")
 raw_data<-read.csv("activity.csv")
 head(raw_data)
 ```
+
+```
+  steps       date interval
+1    NA 2012-10-01        0
+2    NA 2012-10-01        5
+3    NA 2012-10-01       10
+4    NA 2012-10-01       15
+5    NA 2012-10-01       20
+6    NA 2012-10-01       25
+```
 Remove all NA's, add calculated day, calculate summarised steps/day
 
-```{r}
+
+```r
 activity<-na.omit(raw_data)
 activity$data <- as.Date(activity$date)
 steps_per_day <- summarise(group_by(activity, date), total = sum(steps))
@@ -30,6 +32,11 @@ steps_per_day <- summarise(group_by(activity, date), total = sum(steps))
 hist(steps_per_day$total,
    main="Histogram of total number of steps per day",
    xlab="Total # of steps / day")
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
+
+```r
 mean_steps<-mean(steps_per_day$total)
 median_steps <- median(steps_per_day$total)
 ```
@@ -37,32 +44,40 @@ median_steps <- median(steps_per_day$total)
 
 ## What is mean total number of steps taken per day?
 
-- Mean total number steps per day is `r mean_steps`  
-- Median total number of steps per day is `r median_steps`  
-- Data recorded between `r min(as.Date(activity$date))` and `r max(as.Date(activity$date))`  
+- Mean total number steps per day is 1.0766189\times 10^{4}  
+- Median total number of steps per day is 10765  
+- Data recorded between 2012-10-02 and 2012-11-29  
 
 ## What is the average daily activity pattern?
 
-``` {r}
+
+```r
 average_steps_per_day <- aggregate(steps~interval, activity, FUN="mean")
 plot(average_steps_per_day,
    type="l",
    main="Average number of steps over whole time period",
    ylab="Average steps taken")
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
+
+```r
 max_step_interval <- average_steps_per_day$interval[which.max(average_steps_per_day$steps)]
 ```
 
-- The highest average step count happened during interval `r max_step_interval`
+- The highest average step count happened during interval 835
 
 ## Imputing missing values
 - Calculate the number of missing observations
 - Fill in missing data with medians
-```{r}
+
+```r
 total_missing_values <- sum(is.na(raw_data$steps))
 ```
-- There are `r total_missing_values` missing observations (NAs) in the data
+- There are 2304 missing observations (NAs) in the data
 - For those NA's, let's calculate the observed average steps from similar intervals
-``` {r}
+
+```r
 edited_data <- raw_data
 for (i in 1:nrow(edited_data)) {
    if (is.na(edited_data$steps[i])) {
@@ -73,20 +88,27 @@ for (i in 1:nrow(edited_data)) {
 }
 ```
 - Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day
-```{r}
+
+```r
 steps_per_day <- summarise(group_by(edited_data, date), total = sum(steps))
 
 hist(steps_per_day$total,
      main="Histogram of total number of steps per day (edited data)",
      xlab="Total # of steps / day")
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+
+```r
 mean_steps <- mean(steps_per_day$total)
 median_steps <- median(steps_per_day$total)
 ```
-- Mean total number steps per day is `r mean_steps` (same as before)  
-- Median total number of steps per day is `r median_steps` (slighlty higher)  
+- Mean total number steps per day is 1.0766189\times 10^{4} (same as before)  
+- Median total number of steps per day is 1.0766189\times 10^{4} (slighlty higher)  
 
 ## Are there differences in activity patterns between weekdays and weekends?
-```{r}
+
+```r
 #Mark weekday/weekend using function weekdays and provision on day_type
 edited_data$day <- weekdays(as.Date(edited_data$date))
 edited_data$day_type[edited_data$day %in% c("Saturday", "Sunday")] <- "Weekend"
@@ -106,4 +128,6 @@ qplot(interval,
    main = "") +
    facet_wrap(~ day_type, ncol = 1)
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
 
