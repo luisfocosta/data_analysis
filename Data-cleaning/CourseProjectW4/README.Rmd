@@ -82,4 +82,4 @@ Note: due to their size, these files were not uploaded in GitHub
 
 ## The code book
 
-See https://github.com/luisfocosta/data_analysis/tree/master/Data-cleaning/CourseProjectW4/CodeBook.md
+See https://github.com/luisfocosta/data_analysis/tree/master/Data-cleaning/CourseProjectW4/CodeBook.Rmd

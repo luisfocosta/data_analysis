@@ -34,3 +34,7 @@ Replace activity codes with activity names.
 Renames column names - to meake it more readable.
 
 The result is saved as `./tidy_dataset.txt`, a 180x68 data table, where the first column contains subject IDs, the second column contains activity names, and  the averages of each of the 66 attributes are in columns 3:68.
+
+For further information on this project, see here: https://github.com/luisfocosta/data_analysis/blob/master/Data-cleaning/CourseProjectW4/README.Rmd
+
+See run_analysis.R code here: https://github.com/luisfocosta/data_analysis/blob/master/Data-cleaning/CourseProjectW4/run_analysis.R
