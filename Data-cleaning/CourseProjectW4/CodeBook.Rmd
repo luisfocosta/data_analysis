@@ -1,0 +1,36 @@
+---
+title: "CodeBook"
+author: "Luis Costa"
+date: "March 5, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## CodeBook
+
+How `run_analysis.R` implements the instructions:
+(check source code for documentation/comments)
+
+Checks if the zip file exists, otherwise it downloads;
+Checks if the zip file has already been extracted to the directory, otherwise it extracts all files.
+
+Load all test and train data sets (`X_train.txt`, `y_train.txt`, `subject_train.txt`, `X_test.txt`, `y_test.txt`, `subject_test.txt`)
+(Used data sets: training_set, training_set_activity, training_set_subjects and
+test_set, test_set_activity, test_set_subjects)
+Note these data sets are removed later from R to free up memory.
+
+Loaded the features and activity labels (data frames activity_labels and features)
+
+Extract the focused features: mean and standard deviation column names and data (data frame focus_features)
+
+Merge all test and train data sets and creates tidy data set.
+(Data frames merged_dataset and tidy_dataset)
+
+Replace activity codes with activity names.
+
+Renames column names - to meake it more readable.
+
+The result is saved as `./tidy_dataset.txt`, a 180x68 data table, where the first column contains subject IDs, the second column contains activity names, and  the averages of each of the 66 attributes are in columns 3:68.
